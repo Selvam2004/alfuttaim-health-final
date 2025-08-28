@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Futtaim Health | Healthcare Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0066cc;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .years-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Health Packages Section */
+        .health-packages {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+
+        .health-packages h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .package-header {
+            padding: 2rem 2rem 1rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .basic { background: #28a745; }
+        .premium { background: #fd7e14; }
+        .comprehensive { background: #0066cc; }
+
+        .package-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .package-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-price {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .currency {
+            font-size: 1.2rem;
+            color: #666;
+            margin-left: 8px;
+        }
+
+        .package-duration {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .package-features {
+            padding: 0 2rem;
+        }
+
+        .package-features h4 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .package-features ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .package-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .select-package-btn {
+            width: calc(100% - 4rem);
+            margin: 0 2rem 2rem;
+            padding: 15px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .select-package-btn:hover {
+            background: #004499;
+        }
+
+        /* Payment Modal */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-modal.active {
+            display: flex;
+        }
+
+        .payment-modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .payment-modal h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .payment-modal .price {
+            font-size: 2.5rem;
+            color: #0066cc;
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+
+        .payment-modal button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .payment-modal button:hover {
+            background: #004499;
+        }
+
+        .payment-modal .close-btn {
+            background: #6c757d;
+        }
+
+        .payment-modal .close-btn:hover {
+            background: #5a6268;
+        }
+
+        .package-summary {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .package-summary h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .package-summary ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .package-summary li {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Al-Futtaim_Group_DL_logo.svg/1200px-Al-Futtaim_Group_DL_logo.svg.png" alt="Al-Futtaim Group Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#packages">Health Packages</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="years-badge">Healthcare Excellence</div>
+            <h1>Al-Futtaim Health</h1>
+            <p class="hero-subtitle">Integrated Healthcare Solutions for Better Living</p>
+        </div>
+    </section>
+
+    <!-- Health Packages Section -->
+    <section id="packages" class="health-packages">
+        <div class="container">
+            <h2>Health Packages & Services</h2>
+            <div class="packages-grid">
+                <!-- Basic Health Checkup -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="category-badge basic">Basic</div>
+                        <h3>Basic Health Checkup</h3>
+                        <p class="package-description">Essential health screening for preventive care</p>
+                        <div class="package-price">
+                            <span class="price">299</span>
+                            <span class="currency">AED</span>
+                        </div>
+                        <div class="package-duration">Duration: 2 hours</div>
+                    </div>
+                    <div class="package-features">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Complete Blood Count (CBC)</li>
+                            <li>Blood Sugar Test</li>
+                            <li>Blood Pressure Check</li>
+                            <li>BMI Assessment</li>
+                            <li>General Physician Consultation</li>
+                        </ul>
+                    </div>
+                    <button class="select-package-btn" onclick="showPaymentModal('Basic Health Checkup', 299)">
+                        Select Package
+                    </button>
+                </div>
+
+                <!-- Comprehensive Wellness Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="category-badge comprehensive">Comprehensive</div>
+                        <h3>Comprehensive Wellness Package</h3>
+                        <p class="package-description">Complete health assessment with advanced diagnostics</p>
+                        <div class="package-price">
+                            <span class="price">899</span>
+                            <span class="currency">AED</span>
+                        </div>
+                        <div class="package-duration">Duration: 4 hours</div>
+                    </div>
+                    <div class="package-features">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Full Body Health Checkup</li>
+                            <li>Cardiac Risk Assessment</li>
+                            <li>Diabetes Screening</li>
+                            <li>Liver Function Tests</li>
+                            <li>Kidney Function Tests</li>
+                            <li>Thyroid Function Tests</li>
+                            <li>Vitamin D & B12 Tests</li>
+                            <li>Specialist Consultation</li>
+                        </ul>
+                    </div>
+                    <button class="select-package-btn" onclick="showPaymentModal('Comprehensive Wellness Package', 899)">
+                        Select Package
+                    </button>
+                </div>
+
+                <!-- Executive Health Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="category-badge premium">Premium</div>
+                        <h3>Executive Health Package</h3>
+                        <p class="package-description">Premium health package for busy professionals</p>
+                        <div class="package-price">
+                            <span class="price">1499</span>
+                            <span class="currency">AED</span>
+                        </div>
+                        <div class="package-duration">Duration: 6 hours</div>
+                    </div>
+                    <div class="package-features">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Comprehensive Health Screening</li>
+                            <li>Advanced Cardiac Assessment</li>
+                            <li>Cancer Screening Tests</li>
+                            <li>Stress & Mental Health Evaluation</li>
+                            <li>Nutritional Assessment</li>
+                            <li>Executive Physical Examination</li>
+                            <li>Priority Scheduling</li>
+                            <li>Detailed Health Report</li>
+                            <li>Follow-up Consultation</li>
+                        </ul>
+                    </div>
+                    <button class="select-package-btn" onclick="showPaymentModal('Executive Health Package', 1499)">
+                        Select Package
+                    </button>
+                </div>
+
+                <!-- Family Wellness Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="category-badge comprehensive">Comprehensive</div>
+                        <h3>Family Wellness Package</h3>
+                        <p class="package-description">Complete health package for the entire family</p>
+                        <div class="package-price">
+                            <span class="price">2199</span>
+                            <span class="currency">AED</span>
+                        </div>
+                        <div class="package-duration">Duration: Full Day</div>
+                    </div>
+                    <div class="package-features">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Health Checkup for 4 Family Members</li>
+                            <li>Pediatric Care (for children)</li>
+                            <li>Adult Health Screening</li>
+                            <li>Family Health Consultation</li>
+                            <li>Vaccination Updates</li>
+                            <li>Health Education Session</li>
+                            <li>Nutritional Counseling</li>
+                        </ul>
+                    </div>
+                    <button class="select-package-btn" onclick="showPaymentModal('Family Wellness Package', 2199)">
+                        Select Package
+                    </button>
+                </div>
+
+                <!-- Senior Care Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="category-badge premium">Premium</div>
+                        <h3>Senior Care Package</h3>
+                        <p class="package-description">Specialized health package for seniors (60+)</p>
+                        <div class="package-price">
+                            <span class="price">1199</span>
+                            <span class="currency">AED</span>
+                        </div>
+                        <div class="package-duration">Duration: 5 hours</div>
+                    </div>
+                    <div class="package-features">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Geriatric Health Assessment</li>
+                            <li>Bone Density Test</li>
+                            <li>Memory & Cognitive Evaluation</li>
+                            <li>Fall Risk Assessment</li>
+                            <li>Medication Review</li>
+                            <li>Chronic Disease Management</li>
+                            <li>Physiotherapy Consultation</li>
+                        </ul>
+                    </div>
+                    <button class="select-package-btn" onclick="showPaymentModal('Senior Care Package', 1199)">
+                        Select Package
+                    </button>
+                </div>
+
+                <!-- Women's Health Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="category-badge comprehensive">Comprehensive</div>
+                        <h3>Women's Health Package</h3>
+                        <p class="package-description">Comprehensive health package designed for women</p>
+                        <div class="package-price">
+                            <span class="price">799</span>
+                            <span class="currency">AED</span>
+                        </div>
+                        <div class="package-duration">Duration: 3 hours</div>
+                    </div>
+                    <div class="package-features">
+                        <h4>Package Includes:</h4>
+                        <ul>
+                            <li>Gynecological Examination</li>
+                            <li>Breast Health Screening</li>
+                            <li>Cervical Health Screening</li>
+                            <li>Bone Health Assessment</li>
+                            <li>Hormonal Evaluation</li>
+                            <li>Nutritional Counseling</li>
+                            <li>Women's Wellness Consultation</li>
+                        </ul>
+                    </div>
+                    <button class="select-package-btn" onclick="showPaymentModal('Womens Health Package', 799)">
+                        Select Package
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="payment-modal">
+        <div class="payment-modal-content">
+            <h3>Payment Summary</h3>
+            <p id="payment-service">Service: </p>
+            <div id="payment-price" class="price"></div>
+            <div id="payment-package-summary" class="package-summary"></div>
+            <button onclick="processPayment()">Proceed to Payment</button>
+            <button onclick="closePaymentModal()" class="close-btn">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Package data for payment modal
+        const packageData = {
+            'Basic Health Checkup': {
+                duration: '2 hours',
+                features: [
+                    'Complete Blood Count (CBC)',
+                    'Blood Sugar Test',
+                    'Blood Pressure Check',
+                    'BMI Assessment',
+                    'General Physician Consultation'
+                ]
+            },
+            'Comprehensive Wellness Package': {
+                duration: '4 hours',
+                features: [
+                    'Full Body Health Checkup',
+                    'Cardiac Risk Assessment',
+                    'Diabetes Screening',
+                    'Liver Function Tests',
+                    'Kidney Function Tests',
+                    'Thyroid Function Tests',
+                    'Vitamin D & B12 Tests',
+                    'Specialist Consultation'
+                ]
+            },
+            'Executive Health Package': {
+                duration: '6 hours',
+                features: [
+                    'Comprehensive Health Screening',
+                    'Advanced Cardiac Assessment',
+                    'Cancer Screening Tests',
+                    'Stress & Mental Health Evaluation',
+                    'Nutritional Assessment',
+                    'Executive Physical Examination',
+                    'Priority Scheduling',
+                    'Detailed Health Report',
+                    'Follow-up Consultation'
+                ]
+            },
+            'Family Wellness Package': {
+                duration: 'Full Day',
+                features: [
+                    'Health Checkup for 4 Family Members',
+                    'Pediatric Care (for children)',
+                    'Adult Health Screening',
+                    'Family Health Consultation',
+                    'Vaccination Updates',
+                    'Health Education Session',
+                    'Nutritional Counseling'
+                ]
+            },
+            'Senior Care Package': {
+                duration: '5 hours',
+                features: [
+                    'Geriatric Health Assessment',
+                    'Bone Density Test',
+                    'Memory & Cognitive Evaluation',
+                    'Fall Risk Assessment',
+                    'Medication Review',
+                    'Chronic Disease Management',
+                    'Physiotherapy Consultation'
+                ]
+            },
+            'Womens Health Package': {
+                duration: '3 hours',
+                features: [
+                    'Gynecological Examination',
+                    'Breast Health Screening',
+                    'Cervical Health Screening',
+                    'Bone Health Assessment',
+                    'Hormonal Evaluation',
+                    'Nutritional Counseling',
+                    'Women\'s Wellness Consultation'
+                ]
+            }
+        };
+
+        // Global variables to store current package details
+        let currentPackagePrice = 0;
+        let currentServiceName = '';
+
+        // Payment modal functions
+        function showPaymentModal(serviceName, price) {
+            console.log('showPaymentModal called with:', serviceName, price);
+            
+            // Store current package details for payment processing
+            currentServiceName = serviceName;
+            currentPackagePrice = price;
+            
+            document.getElementById('payment-service').textContent = 'Service: ' + serviceName;
+            document.getElementById('payment-price').textContent = price + ' AED';
+            
+            // Show package summary
+            const packageInfo = packageData[serviceName];
+            console.log('Package info:', packageInfo);
+            
+            if (packageInfo) {
+                let featuresHtml = '';
+                for (let i = 0; i < packageInfo.features.length; i++) {
+                    featuresHtml += '<li>' + packageInfo.features[i] + '</li>';
+                }
+                
+                const summaryHtml = '<h4>Package Details</h4>' +
+                    '<p><strong>Duration:</strong> ' + packageInfo.duration + '</p>' +
+                    '<p><strong>Package Includes:</strong></p>' +
+                    '<ul>' + featuresHtml + '</ul>';
+                    
+                document.getElementById('payment-package-summary').innerHTML = summaryHtml;
+            }
+            
+            const modal = document.getElementById('payment-modal');
+            console.log('Modal element:', modal);
+            modal.classList.add('active');
+            console.log('Modal classes after adding active:', modal.className);
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.remove('active');
+        }
+
+        function processPayment() {
+            // Generate random 16-digit order ID
+            const orderId = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
+            
+            // Prepare the API payload
+            const payload = {
+                "order_id": orderId.toString(),
+                "first_name": "John",
+                "last_name": "Wick",
+                "customer_id": "cth_2yvjmhSBKMpLC2u6",
+                "timestamp": Math.floor(Date.now() / 1000).toString(),
+                "payment_page_client_id": "testalfuttaim",
+                "action": "paymentPage",
+                "amount": currentPackagePrice.toFixed(2),
+                "currency": "AED",
+                "metadata.expiryInMins": "7200",
+                "save_to_locker": "false",
+                "return_url": window.location.href,
+                "metadata.txns.showStatusScreen": "true",
+                "metadata.JUSPAY:gateway_reference_id":"Stripe_UK"
+            };
+
+            // Show loading state
+            const proceedBtn = document.querySelector('.payment-modal button[onclick="processPayment()"]');
+            const originalText = proceedBtn.textContent;
+            proceedBtn.textContent = 'Processing...';
+            proceedBtn.disabled = true;
+
+            console.log('Making payment request with payload:', payload);
+
+            // Make API call to backend (which calls Juspay)
+            fetch('/api/payment/initiate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                console.log('API Response Status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Juspay API Response:', data);
+                
+                // Check if response has payment_links.web
+                if (data.payment_links && data.payment_links.web) {
+                    // Open payment page in new window
+                    window.open(data.payment_links.web, '_blank');
+                    closePaymentModal();
+                } else {
+                    throw new Error('Payment link not found in response');
+                }
+            })
+            .catch(error => {
+                console.error('Payment API Error:', error);
+                alert('Payment processing failed. Please try again. Check console for details.');
+            })
+            .finally(() => {
+                // Reset button state
+                proceedBtn.textContent = originalText;
+                proceedBtn.disabled = false;
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('payment-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+    </script>
+</body>
+</html>
